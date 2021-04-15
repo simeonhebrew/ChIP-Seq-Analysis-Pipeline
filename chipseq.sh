@@ -53,7 +53,7 @@ bedGraphToBigWig chipread.bedgraph refseq/hg19.chromosome.sizes chipread.bw
 #IGV
 
 #Generate bigwig file for control reads
-bowtie2 -k 1 -x bowtie_index/hs19 Control.fastq -S control.sam
+bowtie2 -k 1 -x bowtie_index/hs19 Control/Control.fastq -S control.sam
 samtools view -bSo control.bam control.sam
 samtools sort -T control.temp.bam -o control.sorted.bam control.bam
 samtools index control.sorted.bam
@@ -92,7 +92,7 @@ bedtools closest -a chipread_peaks.narrowPeak -b refseq/gencode.tss.sorted.bed >
 #Sort out maximum number of overlapping reads
 sort -k5 -nr chipread_summits.bed > chipread_summits.sorted.bed
 
-#Select 400 top peaks 
+#Select 400 top peaks
 awk 'BEGIN{FS=OFS="\t"}; NR < 401 { print $1, $2-30, $3+29 }' chipread_summits.sorted.bed > chipread_top400_summits.bed
 
 #Extract sequences around peak summits in FASTA format
