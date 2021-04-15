@@ -93,7 +93,7 @@ bedtools closest -a chipread_peaks.narrowPeak -b refseq/gencode.tss.sorted.bed >
 sort -k5 -nr chipread_summits.bed > chipread_summits.sorted.bed
 
 #Select 400 top peaks 
-awk 'BEGIN{FS=0FS="\t"}; NR < 401 { print $1, $2-30, $3+29 }' chipread_summits.sorted.bed > chipread_top400_summits.bed
+awk 'BEGIN{FS=OFS="\t"}; NR < 401 { print $1, $2-30, $3+29 }' chipread_summits.sorted.bed > chipread_top400_summits.bed
 
 #Extract sequences around peak summits in FASTA format
 bedtools getfasta -fi refseq/HS19.fa -bed chipread_top400_summits.bed -fo chipread_top400_summits.fa
